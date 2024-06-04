@@ -37,32 +37,9 @@ export const TabDescriptor = ({
 }: TabDescriptorProps) => {
   const [activeIndex, setActiveIndex] = useState(1);
 
-  const [currUser, setCurrUser] = useState(0);
-
-  const names = [
-    {
-      id: 0,
-      name: "Nicki",
-      img: "https://images.pexels.com/photos/46216/sunflower-flowers-bright-yellow-46216.jpeg?auto=compress&cs=tinysrgb&w=800",
-      desc: "A 28-year-old software engineer who loves AI, hiking, and sci-fi novels. Enjoys traveling and trying new recipes.",
-    },
-    {
-      id: 1,
-      name: "jake",
-      img: "https://images.pexels.com/photos/46216/sunflower-flowers-bright-yellow-46216.jpeg?auto=compress&cs=tinysrgb&w=800",
-      desc: "A 35-year-old graphic designer who creates digital art, plays guitar, and practices yoga. Tech and gaming enthusiast.",
-    },
-    {
-      id: 2,
-      name: "Akame",
-      img: "https://images.pexels.com/photos/46216/sunflower-flowers-bright-yellow-46216.jpeg?auto=compress&cs=tinysrgb&w=800",
-      desc: "fake desc",
-    },
-  ];
   const toggleActive = (e) => {
     console.log("curr id:", e.target.id);
     setActiveIndex(e.target.id);
-    setCurrUser(names[e.target.id]);
   };
 
   const users = [
@@ -75,14 +52,14 @@ export const TabDescriptor = ({
     {
       id: 2,
       name: "jake",
-      img: "https://images.pexels.com/photos/46216/sunflower-flowers-bright-yellow-46216.jpeg?auto=compress&cs=tinysrgb&w=800",
+      img: "https://images.pexels.com/photos/39517/rose-flower-blossom-bloom-39517.jpeg?auto=compress&cs=tinysrgb&w=800",
       desc: "A 35-year-old graphic designer who creates digital art, plays guitar, and practices yoga. Tech and gaming enthusiast.",
     },
     {
       id: 3,
       name: "Akame",
-      img: "https://images.pexels.com/photos/46216/sunflower-flowers-bright-yellow-46216.jpeg?auto=compress&cs=tinysrgb&w=800",
-      desc: "fake desc",
+      img: "https://images.pexels.com/photos/757889/pexels-photo-757889.jpeg?auto=compress&cs=tinysrgb&w=800",
+      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna.",
     },
   ];
 
@@ -93,11 +70,11 @@ export const TabDescriptor = ({
     <div style={{ backgroundColor: "#F5F5F5" }} className="text-black	">
       {/* nav tool */}
       <div className="mb-6 flex flex-row justify-around items-center py-2 rounded-2xl">
-        {names.map((x, index) => {
+        {users.map((x, index) => {
           console.log(index);
           return (
             <button
-              className=" font-semibold py-2 px-4 rounded shadow"
+              className=" font-semibold py-4 px-4 rounded mt-4 w-36"
               style={activeIndex == index ? { backgroundColor: "white" } : null}
               onClick={toggleActive}
               //   index={index}
