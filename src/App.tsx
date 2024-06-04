@@ -1,6 +1,8 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
+import { MessageThread } from "./stories/MessageThread";
+import { exampleMessages } from "./stories/messages";
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
         <h1 className="text-3xl font-bold underline">Hello world!</h1>
         <button className="rounded bg-red-500">hi</button>
       </header>
+      <MessageThread messages={exampleMessages} />
     </div>
   );
 }
