@@ -21,17 +21,7 @@ type Story = StoryObj<typeof meta>;
 export const Selected: Story = {
   args: {
     title: "Dishwashing",
-    selected: false,
     backgroundColor: "#E2FFE5",
     description: "Wash and dry dishes, pots, pans, and utensils",
-  },
-};
-
-export const NonSelected: Story = {
-  args: {
-    title: "Laundry",
-    selected: false,
-    backgroundColor: "#E2FFE5",
-    description: "Wash, dry, fold, and put away clothes and linens.",
   },
 };
