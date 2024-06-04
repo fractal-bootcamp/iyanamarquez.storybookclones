@@ -37,6 +37,7 @@ export const MessageThread = ({ messages, ...props }: MessageThreadProps) => {
             message.styling = lastMessage;
           } else {
             message.styling = aloneMessage;
+            message.showImage = true;
           }
         }
         // if first message
@@ -58,6 +59,7 @@ export const MessageThread = ({ messages, ...props }: MessageThreadProps) => {
           msgs[idx].user.name !== msgs[idx + 1].user.name
         ) {
           message.styling = aloneMessage;
+          message.showImage = true;
         }
         // LAST MESSAGE IN GROUP,
         // if prev message matches curr message, and next message does not match curr message, last message
@@ -74,6 +76,7 @@ export const MessageThread = ({ messages, ...props }: MessageThreadProps) => {
           msgs[idx].user.name === msgs[idx + 1].user.name
         ) {
           message.styling = newMessage;
+          message.showImage = true;
         } else {
           message.showImage = true;
           message.styling = "rounded";
@@ -131,7 +134,6 @@ export const MessageThread = ({ messages, ...props }: MessageThreadProps) => {
                     index={idx}
                     styling={message.styling}
                   />
-
                 </div>
               )}
             </div>
