@@ -67,14 +67,17 @@ export const TabDescriptor = ({
   console.log("result", result);
 
   return (
-    <div style={{ backgroundColor: "#F5F5F5" }} className="text-black	">
+    <div className="text-black	">
       {/* nav tool */}
-      <div className="mb-6 flex flex-row justify-around items-center py-2 rounded-2xl">
+      <div
+        style={{ backgroundColor: "#F5F5F5" }}
+        className="mb-2 flex flex-row justify-around items-center rounded-2xl py-2 px-4"
+      >
         {users.map((x, index) => {
           console.log(index);
           return (
             <button
-              className=" font-semibold py-4 px-4 rounded mt-4 w-36"
+              className=" font-semibold py-4 px-4 rounded-2xl w-36"
               style={activeIndex == index ? { backgroundColor: "white" } : null}
               onClick={toggleActive}
               //   index={index}
