@@ -90,6 +90,7 @@ export const MessageThread = ({ messages, ...props }: MessageThreadProps) => {
                     index={idx}
                     styling={message.styling}
                   />
+
                 </div>
               )}
             </div>
