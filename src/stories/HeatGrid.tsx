@@ -3,39 +3,15 @@ import "./button.css";
 import "../index.css";
 
 interface HeatGridProps {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  title?: string;
-  /**
-   * What background color to use
-   */
-  backgroundColor?: string;
-  /**
-   * How large should the button be?
-   */
-  link?: string;
-  /**
-   * Button contents
-   */
-  description: string;
-  /**
-   * Optional click handler
-   */
+  colors: string[];
+  numberOfRows: number;
   onClick?: () => void;
 }
 
 /**
  * Primary UI component for user interaction
  */
-export const HeatGrid = ({
-  title,
-  backgroundColor,
-  link,
-  description,
-  ...props
-}: HeatGridProps) => {
-  const colors = ["#3E5FCC", "#D9E2FA", "#D9D9D9", "#9EB0E5", "#BFCBEE"];
+export const HeatGrid = ({ colors, numberOfRows, ...props }: HeatGridProps) => {
   const daysOfWeek = [
     { day: "Mon" },
     { day: "Tues" },
@@ -45,12 +21,11 @@ export const HeatGrid = ({
     { day: "Sat" },
     { day: "Sun" },
   ];
-  const rows = 5;
   const items = [];
-  for (let i = 0; i < 35; i++) {
+  for (let i = 0; i < daysOfWeek.length * numberOfRows; i++) {
     items.push("");
   }
-  function getRandomInt(max) {
+  function getRandomInt(max: number) {
     return Math.floor(Math.random() * max);
   }
 
@@ -62,11 +37,13 @@ export const HeatGrid = ({
         })}
       </div>
       {/* grid */}
-      <div className="grid grid-cols-7 gap-4	">
+      <div className="grid grid-cols-7 gap-4">
         {items.map((x) => {
           return (
             <div
-              style={{ backgroundColor: `${colors[getRandomInt(4)]}` }}
+              style={{
+                backgroundColor: `${colors[getRandomInt(colors.length - 1)]}`,
+              }}
               className="w-16 h-16"
             ></div>
           );

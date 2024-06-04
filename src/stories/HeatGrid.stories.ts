@@ -9,9 +9,7 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-  argTypes: {
-    backgroundColor: { control: "color" },
-  },
+  argTypes: {},
   args: { onClick: fn() },
 } satisfies Meta<typeof HeatGrid>;
 
@@ -20,9 +18,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
   args: {
-    title: "Name of thing",
-    link: "google.com",
-    backgroundColor: "#AFD2A5",
-    description: "hello this is a description",
+    colors: ["#3E5FCC", "#D9E2FA", "#D9D9D9", "#9EB0E5", "#BFCBEE"],
+    numberOfRows: 5,
   },
 };
