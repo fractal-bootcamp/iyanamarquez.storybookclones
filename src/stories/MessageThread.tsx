@@ -19,23 +19,36 @@ export const MessageThread = ({ messages, ...props }: MessageThreadProps) => {
         return (
           <>
             <div className="flex">
+              {/* Messages sent by me */}
               {x.sentByMe ? (
                 <div className="flex flex-row-reverse">
-                  <img
-                    className="w-10 h-10 rounded-full ml-4"
-                    src="https://images.pexels.com/photos/2317904/pexels-photo-2317904.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    alt="Rounded avatar"
-                  />
+                  <div>
+                    <span className="text-slate-400 text-sm flex justify-center	">
+                      {x.user.name}
+                    </span>
+                    <img
+                      className="w-10 h-10 rounded-full ml-4"
+                      src="https://images.pexels.com/photos/2317904/pexels-photo-2317904.jpeg?auto=compress&cs=tinysrgb&w=800"
+                      alt="Rounded avatar"
+                    />
+                  </div>
 
                   <MessageBubble message={x.text} sentByMe={x.sentByMe} />
                 </div>
               ) : (
                 <div className="flex flex-row">
-                  <img
-                    className="w-10 h-10 rounded-full ml-4 mr-4"
-                    src="https://images.pexels.com/photos/75973/pexels-photo-75973.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    alt="Rounded avatar"
-                  />
+                  {/* Messages sent by other user */}
+                  <div>
+                    <span className="text-slate-400 text-sm flex justify-center	">
+                      {x.user.name}
+                    </span>{" "}
+                    <img
+                      className="w-10 h-10 rounded-full ml-4 mr-4 "
+                      src="https://images.pexels.com/photos/75973/pexels-photo-75973.jpeg?auto=compress&cs=tinysrgb&w=800"
+                      alt="Rounded avatar"
+                    />
+                  </div>
+
                   <MessageBubble message={x.text} sentByMe={x.sentByMe} />
                 </div>
               )}
