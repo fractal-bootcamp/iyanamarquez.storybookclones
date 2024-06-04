@@ -3,6 +3,7 @@ import "./button.css";
 import "../index.css";
 import { MessageBubble } from "./MessageBubble";
 import { Message, exampleMessages } from "./messages";
+import { blob } from "stream/consumers";
 
 interface MessageThreadProps {
   messages: Message[];
@@ -28,31 +29,54 @@ export const MessageThread = ({ messages, ...props }: MessageThreadProps) => {
   return (
     <div className="rounded-lg bg-white px-4 py-4 	">
       {messages.map((message, idx, msgs) => {
-        // if last message
+        // if last message,
         if (idx == msgs.length - 1) {
-          message.styling = lastMessage;
+          // if last message alone, alone message, if last message of group, last message
+
+          if (msgs[idx].user.name === msgs[idx - 1].user.name) {
+            message.styling = lastMessage;
+          } else {
+            message.styling = aloneMessage;
+          }
         }
         // if first message
         else if (idx == 0) {
           message.showImage = true;
           message.styling = newMessage;
-        } else if (msgs[idx].user.name === msgs[idx - 1].user.name) {
-          // if current name matches the previous message name, dont show img, middle message
-          message.showImage = false;
+        }
+        // MIDDLE, NOT ALONE MESSAGE
+        else if (
+          msgs[idx].user.name === msgs[idx - 1].user.name &&
+          msgs[idx].user.name === msgs[idx + 1].user.name
+        ) {
           message.styling = middleMessage;
-        } else if (msgs[idx].user.name !== msgs[idx - 1].user.name) {
-          message.showImage = true;
-          message.styling = newMessage;
-          if (msgs[idx].user.name !== msgs[idx + 1].user.name) {
-            // if the current name does not match the next name, last message
-            message.styling = lastMessage;
-          }
-          // if current name does not match the previous message n{ame, show img, new message
-          //   if the next user is different, close message,
-        } else {
-          // last message?
-          message.showImage = true;
+        }
+        // MIDDLE, ALONE MESSAGE
+        // if prev and next message do not match
+        else if (
+          msgs[idx].user.name !== msgs[idx - 1].user.name &&
+          msgs[idx].user.name !== msgs[idx + 1].user.name
+        ) {
+          message.styling = aloneMessage;
+        }
+        // LAST MESSAGE IN GROUP,
+        // if prev message matches curr message, and next message does not match curr message, last message
+        else if (
+          msgs[idx].user.name === msgs[idx - 1].user.name &&
+          msgs[idx].user.name !== msgs[idx + 1].user.name
+        ) {
           message.styling = lastMessage;
+        }
+        // FIRST MESSAGE IN GROUP, NOT FIRST MESSAGE
+        // if prev message does not equal curr message, and next message equals curr message, first message
+        else if (
+          msgs[idx].user.name !== msgs[idx - 1].user.name &&
+          msgs[idx].user.name === msgs[idx + 1].user.name
+        ) {
+          message.styling = newMessage;
+        } else {
+          message.showImage = true;
+          message.styling = "rounded";
         }
 
         return (
@@ -60,12 +84,20 @@ export const MessageThread = ({ messages, ...props }: MessageThreadProps) => {
             <div className="flex">
               {message.sentByMe ? (
                 <div className="flex flex-row-reverse">
-                  <img
-                    className={`w-10 h-10 rounded-full ml-4`}
-                    src="https://images.pexels.com/photos/2317904/pexels-photo-2317904.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    alt="Rounded avatar"
-                    style={!message.showImage ? { visibility: "Hidden" } : {}}
-                  />
+                  <div className="flex flex-col justify-center justify-items-center	content-center	">
+                    <span
+                      style={!message.showImage ? { visibility: "Hidden" } : {}}
+                      className="text-slate-400 text-xs ml-4"
+                    >
+                      {message.user.name}
+                    </span>
+                    <img
+                      className={`w-10 h-10 rounded-full ml-4`}
+                      src="https://images.pexels.com/photos/2317904/pexels-photo-2317904.jpeg?auto=compress&cs=tinysrgb&w=800"
+                      alt="Rounded avatar"
+                      style={!message.showImage ? { visibility: "Hidden" } : {}}
+                    />
+                  </div>
 
                   <MessageBubble
                     message={message.text}
@@ -77,12 +109,21 @@ export const MessageThread = ({ messages, ...props }: MessageThreadProps) => {
                 </div>
               ) : (
                 <div className="flex flex-row">
-                  <img
-                    className="w-10 h-10 rounded-full ml-4 mr-4"
-                    src="https://images.pexels.com/photos/75973/pexels-photo-75973.jpeg?auto=compress&cs=tinysrgb&w=800"
-                    alt="Rounded avatar"
-                    style={!message.showImage ? { visibility: "Hidden" } : {}}
-                  />
+                  <div className="flex flex-col justify-center justify-items-center	content-center	">
+                    <span
+                      style={!message.showImage ? { visibility: "Hidden" } : {}}
+                      className="text-slate-400 text-xs ml-4"
+                    >
+                      {message.user.name}
+                    </span>
+                    <img
+                      className="w-10 h-10 rounded-full ml-4 mr-4"
+                      src="https://images.pexels.com/photos/75973/pexels-photo-75973.jpeg?auto=compress&cs=tinysrgb&w=800"
+                      alt="Rounded avatar"
+                      style={!message.showImage ? { visibility: "Hidden" } : {}}
+                    />
+                  </div>
+
                   <MessageBubble
                     message={message.text}
                     sentByMe={message.sentByMe}
